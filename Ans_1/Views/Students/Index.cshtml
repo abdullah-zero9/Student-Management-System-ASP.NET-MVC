@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Ans_1.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex justify-content-end mb-2">
+    <a href="@Url.Action("Create","Students")" id="btnCreate" class="btn btn-outline-primary btn-sm"> Add New Record</a>
+</div>
+<div>
+    @foreach (var st in Model)
+    {
+        <div class="card mb-2">
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    <img src="@st.Picture" width="32" height="32" class="rounded" />
+                    <label class="mr-2"><b>Student: </b>@Html.DisplayFor(x => st.StudentName)</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="mr-2"><b>Age: </b>@Html.DisplayFor(x => st.Age)</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="mr-2"><b>Date of birth: </b>@Html.DisplayFor(x => st.BirthDate)</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="mr-2">
+                        <b>Students Status: </b>
+                        @if (st.StudentStatus == true)
+                        {
+                            <span class="text-danger">Withdrawn</span>
+                        }
+                        else
+                        {
+                            <span class="text-success">Active</span>
+                        }
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </div>
+                <div>
+                    <a href="@Url.Action("Edit", "Students", new { id=st.StudentId})" id="btnEntryEdit" class="btn btn-outline-success">Edit</a>
+                    <a href="@Url.Action("Delete", "Students", new { id=st.StudentId})" id="btnEntryDelete" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Course Id</th>
+                            <th>Course Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in st.Enrolls)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x => item.Course.CourseId)</td>
+                                <td>@Html.DisplayFor(x => item.Course.CourseName)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

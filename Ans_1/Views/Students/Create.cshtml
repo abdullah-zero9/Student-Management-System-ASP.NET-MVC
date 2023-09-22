@@ -1,0 +1,68 @@
+﻿@model Ans_1.Models.ViewModels.StudentVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*@using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+@using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group row mb-2">
+        <div class="col-6">
+            <h3>IsDb-BISEW Student Informations</h3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group row mb-2 mt-3">
+                @Html.LabelFor(x => x.StudentName, htmlAttributes: new { @class = "control-label col-4" })
+                <div class="col-5">
+                    @Html.EditorFor(x => x.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(x => x.StudentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                @Html.LabelFor(x => x.BirthDate, htmlAttributes: new { @class = "control-label col-4" })
+                <div class="col-5">
+                    @Html.EditorFor(x => x.BirthDate, new { htmlAttributes = new { @class = "form-control", Type = "date" } })
+                    @Html.ValidationMessageFor(x => x.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                @Html.LabelFor(x => x.Age, htmlAttributes: new { @class = "control-label col-4" })
+                <div class="col-5">
+                    @Html.EditorFor(x => x.Age, new { htmlAttributes = new { @class = "form-control", type = "text", inputmode = "numeric" } })
+                    @Html.ValidationMessageFor(x => x.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                @Html.LabelFor(x => x.PicturePath, htmlAttributes: new { @class = "control-label col-4" })
+                <div class="col-5">
+                    @Html.TextBoxFor(x => x.PicturePath, new { @class = "form-control", Type = "file" })
+                    @Html.ValidationMessageFor(x => x.PicturePath, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                @Html.LabelFor(x => x.StudentStatus, htmlAttributes: new { @class = "control-label col-4" })
+                <div class="col-5">
+                    <div class="checkbox">
+                        @Html.EditorFor(x => x.StudentStatus) Withdrawn
+                        @Html.ValidationMessageFor(x => x.StudentStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="d-flex justify-content-between mb-1">
+                <h3>failed Course</h3>
+                <a href="#" id="btnPlus" class="btn btn-outline-warning btn-sm">Add</a>
+            </div>
+            <div id="CourseContainer">
+                @Html.Action("AddNewCourse", "Students")
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-start offset-2">
+            <input type="submit" value="Create" class="btn btn-outline-primary" />
+        </div>
+    </div>
+}
